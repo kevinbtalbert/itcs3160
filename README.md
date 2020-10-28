@@ -1,7 +1,7 @@
 # ITCS 3160
-Project Deliverable for ITCS 3160
+*Project Deliverable for ITCS 3160*
 
-Introduction (Team, Project Description
+Introduction (Team, Project Description)
 
 Use Case for Rating System
 
