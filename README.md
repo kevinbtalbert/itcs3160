@@ -1,5 +1,8 @@
 # ITCS 3160
-*Project Deliverable for ITCS 3160*
+
+## Project Deliverable for ITCS 3160
+
+## Project Contents
 
 Introduction (Team, Project Description)
 
@@ -20,11 +23,10 @@ MySQL dump
 PPT Video (link)
 
 
+
 # Introduction
-*Team*
-Database Project Group #3
+*Team:*  Database Project Group #3
 
 We are working together as a team.
 
-*Team Members*
-Andrew Felipe, Devin Brewbaker, Jackson Blakemore, Jorge Ortiz, and Kevin Talbert
+*Team Members:* Andrew Felipe, Devin Brewbaker, Jackson Blakemore, Jorge Ortiz, and Kevin Talbert
