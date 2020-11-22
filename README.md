@@ -7,11 +7,9 @@
 ### Introduction
 *Team:*  Database Project Group #3
 
-*Team Members:* Andrew Felipe, Devin Brewbaker, Jackson Blakemore, Jorge Ortiz, and Kevin Talbert
+*Team Members:*  Andrew Felipe, Devin Brewbaker, Jackson Blakemore, Jorge Ortiz, and Kevin Talbert
 
-*Project Description* 
-
-For this project our team will be constructing a test database for a campus controlled food delivery service similar to craveoncampus.com.
+*Project Description:*  For this project our team will be constructing a test database for a campus controlled food delivery service similar to craveoncampus.com.
 The goal is to have a robust database that can connect approved drivers to students on UNCC's campus and deliver them food to predetermined locations. 
 We will be starting with a database from the "Mavericks" group and improving on it by making it more efficient and by also adding a rating system which 
 wasn't currently in the database. We hope that with this database will provide us will valuable information about the eating habits on campus and can help improve
@@ -22,6 +20,21 @@ Use Case for Rating System
 ![image](https://user-images.githubusercontent.com/46727094/99898235-ecc01200-2c6d-11eb-8c21-5f747785a2ca.png)
 
 ### Business Rules
+
+(1) Administrative access to the database will allow for querying on ratings (including driver and restaurant comments)
+
+(2) Customer access to the database will allow for viewing resturant ratings and driver ratings
+
+(3) Ratings will be an integer value of 1, 2, 3, 4 or 5
+
+(4) Users viewing ratings can see a driver and restaurant minimum, average, and maximum ratings
+
+(5) Ratings can be delivered on a per order basis (i.e. one per order)
+
+(6) Ratings can be given to the restaurant and to the driver, per order
+
+(7) Customer can give comments about the restaurant and/or the driver, up to 500 characters, per order
+
 
 ### EERD (full database)
 
