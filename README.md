@@ -12,7 +12,9 @@ wasn't currently in the database. We hope that with this database will provide u
 the campus food delivery service. The user orders food.The user pays amount Restarant gets the order. Driver gets the location of the order and where to drop it off. Driver picks up food and drops to off to the user. 
 
 Use Case for Rating System
+
 ![image](https://user-images.githubusercontent.com/46727094/99898235-ecc01200-2c6d-11eb-8c21-5f747785a2ca.png)
+
 Business Rules
 
 EERD (full database)
