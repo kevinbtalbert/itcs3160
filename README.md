@@ -1,10 +1,10 @@
 # ITCS 3160
 
-## Project Deliverable for ITCS 3160
+**Project Deliverable for ITCS 3160**
 
 ## Project Contents
 
-# Introduction
+### Introduction
 *Team:*  Database Project Group #3
 
 *Team Members:* Andrew Felipe, Devin Brewbaker, Jackson Blakemore, Jorge Ortiz, and Kevin Talbert
@@ -21,19 +21,19 @@ Use Case for Rating System
 
 ![image](https://user-images.githubusercontent.com/46727094/99898235-ecc01200-2c6d-11eb-8c21-5f747785a2ca.png)
 
-# Business Rules
+### Business Rules
 
-# EERD (full database)
+### EERD (full database)
 
-# MySQL Queries
+### MySQL Queries
 
-# Stored Procedure
+### Stored Procedure
 
-# Web/App Implementation (Optional) or Description of Future Work
+### Web/App Implementation (Optional) or Description of Future Work
 
-# MySQL dump
+### MySQL dump
 
-# PPT Video (link)
+### PPT Video (link)
 
 
 
