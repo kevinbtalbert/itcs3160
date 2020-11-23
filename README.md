@@ -4,6 +4,26 @@
 
 ## Project Contents
 
+[Introduction](#introduction)
+
+[Use Case for Rating System](#use_case)
+
+[Business Rules](#business_rules)
+
+[EER Diagram](#eer_diagram)
+
+[MySQL Queries](#mysql)
+
+[Stored Procedure](#stored_procedures)
+
+[Description of Future Work](#future_description)
+
+[MySQL dump](#sql_dump)
+
+[PPT Video](#ppt_video)
+
+<a name="introduction"></a> 
+
 ### Introduction
 *Team:*  Database Project Group #3
 
@@ -15,9 +35,13 @@ We will be starting with a database from the "Mavericks" group and improving on 
 wasn't currently in the database. We hope that with this database will provide us will valuable information about the eating habits on campus and can help improve
 the campus food delivery service. The user orders food. The user pays amount. Restaurant gets the order. Driver gets the location of the order and where to drop it off. Driver picks up food and drops to off to the user. 
 
-Use Case for Rating System
+<a name="use_case"></a> 
+
+### Use Case for Rating System
 
 ![image](https://user-images.githubusercontent.com/46727094/99898235-ecc01200-2c6d-11eb-8c21-5f747785a2ca.png)
+
+<a name="business_rules"></a> 
 
 ### Business Rules
 
@@ -35,16 +59,31 @@ Use Case for Rating System
 
 (7) Customer can give comments about the restaurant and/or the driver, up to 500 characters, per order
 
+<a name="eer_diagram"></a> 
 
 ### EERD (full database)
 
+[EER Diagram](https://github.com/kevinbtalbert/itcs3160/blob/main/Rating-System/EER%20Diagram%20(updated).pdf)
+
+<a name="mysql"></a> 
+
 ### MySQL Queries
 
-### Stored Procedure
+[MySQL Queries](LINKHERE.pdf)
 
-### Web/App Implementation (Optional) or Description of Future Work
+<a name="stored_procedures"></a> 
+
+### Stored Procedures
+
+<a name="future_description"></a> 
+
+### Description of Future Work
+
+<a name="sql_dump"></a> 
 
 ### MySQL dump
+
+<a name="ppt_video"></a> 
 
 ### PPT Video (link)
 
