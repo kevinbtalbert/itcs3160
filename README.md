@@ -1,4 +1,4 @@
-# ITCS 3160
+# Campus Eats Rating System Project
 
 **Project Deliverable for ITCS 3160**
 
