@@ -69,7 +69,7 @@ the campus food delivery service. The user orders food. The user pays amount. Re
 
 ### MySQL Queries
 
-[MySQL Queries](LINKHERE.pdf)
+[MySQL Queries](Rating-System/DataDictionary_Campus_Eats_Ratings.html)
 
 <a name="stored_procedures"></a> 
 
