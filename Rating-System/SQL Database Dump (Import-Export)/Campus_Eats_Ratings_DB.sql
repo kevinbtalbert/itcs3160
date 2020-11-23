@@ -236,7 +236,7 @@ DROP TABLE IF EXISTS `rating`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rating` (
-  `rating_id` int NOT NULL,
+  `rating_id` int NOT NULL AUTO_INCREMENT,
   `order_id` int NOT NULL,
   `driver_rating` int DEFAULT NULL,
   `restaurant_rating` int DEFAULT NULL,
@@ -245,7 +245,7 @@ CREATE TABLE `rating` (
   PRIMARY KEY (`rating_id`),
   KEY `order_id_idx` (`order_id`),
   CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `delivery` (`delivery_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,6 +271,7 @@ CREATE TABLE `restaurant` (
   `restaurant_name` varchar(75) DEFAULT NULL,
   `schedule` varchar(75) DEFAULT NULL,
   `website` varchar(75) DEFAULT NULL,
+  `restaurant_rating` int DEFAULT NULL,
   PRIMARY KEY (`restaurant_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -333,4 +334,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-22 20:15:58
+-- Dump completed on 2020-11-22 23:48:45
