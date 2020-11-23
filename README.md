@@ -12,6 +12,8 @@
 
 [EER Diagram](#eer_diagram)
 
+[Data Dictionary](#data_dictionary)
+
 [MySQL Queries](#mysql)
 
 [Stored Procedure](#stored_procedures)
@@ -63,13 +65,19 @@ the campus food delivery service. The user orders food. The user pays amount. Re
 
 ### EERD (full database)
 
-[EER Diagram](Rating-System/EER%20Diagram%20(updated).pdf)
+[EER Diagram](Rating-System/EER%20Diagram/EER%20Diagram%20(updated).pdf)
+
+<a name="data_dictionary"></a> 
+
+### Data Dictionary (Schema Report)
+
+[Data Dictionary](Rating-System/Data%20Dictionary/DataDictionary_Campus_Eats_Ratings.pdf)
 
 <a name="mysql"></a> 
 
 ### MySQL Queries
 
-[MySQL Queries](Rating-System/DataDictionary_Campus_Eats_Ratings.html)
+[MySQL Queries](LINKHERE.pdf)
 
 <a name="stored_procedures"></a> 
 
