@@ -41,7 +41,7 @@ the campus food delivery service. The user orders food. The user pays amount. Re
 
 ### Use Case for Rating System
 
-![image](https://user-images.githubusercontent.com/46727094/99898235-ecc01200-2c6d-11eb-8c21-5f747785a2ca.png)
+![image](Rating-System/Use%20Case%20Diagrams/Use-Case-Diagrams.png)
 
 <a name="business_rules"></a> 
 
