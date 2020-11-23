@@ -1,16 +1,8 @@
-Drop database Campus_Eats_Fall2020;
-Create database Campus_Eats_Fall2020;
-Use Campus_Eats_Fall2020;
--- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for macos10.15 (x86_64)
 --
--- Host: 127.0.0.1    Database: niner_eats
+-- Host: 127.0.0.1    Database: Campus_Eats_Fall2020
 -- ------------------------------------------------------
--- Server version	8.0.18
--- created by "mavericks" team:  
--- Dhananjay Arora, Akshay Babu, Sumit Kawale, Prashant Madaan
--- this database is only to be used for educational and class
--- purposes and can not be replicated or used for commercial purposes
--- or private interests without permission by the Mavericks team
+-- Server version	8.0.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,9 +23,9 @@ DROP TABLE IF EXISTS `delivery`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `delivery` (
-  `delivery_id` int(11) NOT NULL AUTO_INCREMENT,
-  `driver_id` int(11) NOT NULL,
-  `vehicle_id` int(11) NOT NULL,
+  `delivery_id` int NOT NULL AUTO_INCREMENT,
+  `driver_id` int NOT NULL,
+  `vehicle_id` int NOT NULL,
   `delivery_time` datetime DEFAULT NULL,
   PRIMARY KEY (`delivery_id`),
   KEY `fk_delivery_driver_id` (`driver_id`),
@@ -61,8 +53,8 @@ DROP TABLE IF EXISTS `driver`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `driver` (
-  `driver_id` int(11) NOT NULL AUTO_INCREMENT,
-  `student_id` int(11) NOT NULL,
+  `driver_id` int NOT NULL AUTO_INCREMENT,
+  `student_id` int NOT NULL,
   `license_number` varchar(75) DEFAULT NULL,
   `date_hired` date DEFAULT NULL,
   `rating` float DEFAULT NULL,
@@ -90,8 +82,8 @@ DROP TABLE IF EXISTS `faculty`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `faculty` (
-  `faculty_id` int(11) NOT NULL AUTO_INCREMENT,
-  `person_id` int(11) NOT NULL,
+  `faculty_id` int NOT NULL AUTO_INCREMENT,
+  `person_id` int NOT NULL,
   `title` varchar(75) DEFAULT NULL,
   `degree_college` varchar(75) DEFAULT NULL,
   `highest_degree` varchar(75) DEFAULT NULL,
@@ -119,7 +111,7 @@ DROP TABLE IF EXISTS `location`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `location` (
-  `location_id` int(11) NOT NULL AUTO_INCREMENT,
+  `location_id` int NOT NULL AUTO_INCREMENT,
   `location_name` varchar(75) DEFAULT NULL,
   `location_address` varchar(75) DEFAULT NULL,
   `latitude` varchar(75) DEFAULT NULL,
@@ -141,6 +133,43 @@ INSERT INTO `location` VALUES (1,'Suite 157','69612 Will Ferry\nEwellfort, KS 63
 /*!40000 ALTER TABLE `location` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `order`
+--
+
+DROP TABLE IF EXISTS `order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order` (
+  `order_id` int NOT NULL,
+  `person_id` int DEFAULT NULL,
+  `delivery_id` int DEFAULT NULL,
+  `location_id` int DEFAULT NULL,
+  `driver_id` int DEFAULT NULL,
+  `restaurant_id` int DEFAULT NULL,
+  PRIMARY KEY (`order_id`),
+  UNIQUE KEY `order_id_UNIQUE` (`order_id`),
+  KEY `person_id_idx` (`person_id`),
+  KEY `delivery_id_idx` (`delivery_id`),
+  KEY `location_id_idx` (`location_id`),
+  KEY `driver_id_idx` (`driver_id`),
+  KEY `restaurant_id_idx` (`restaurant_id`),
+  CONSTRAINT `delivery_id` FOREIGN KEY (`delivery_id`) REFERENCES `delivery` (`delivery_id`),
+  CONSTRAINT `driver_id` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`),
+  CONSTRAINT `location_id` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`),
+  CONSTRAINT `person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`),
+  CONSTRAINT `restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`restaurant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order`
+--
+
+LOCK TABLES `order` WRITE;
+/*!40000 ALTER TABLE `order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `person`
@@ -150,10 +179,10 @@ DROP TABLE IF EXISTS `person`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `person` (
-  `person_id` int(11) NOT NULL AUTO_INCREMENT,
+  `person_id` int NOT NULL AUTO_INCREMENT,
   `person_name` varchar(300) DEFAULT NULL,
   `person_email` varchar(150) DEFAULT NULL,
-  `cell` bigint(20) DEFAULT NULL,
+  `cell` bigint DEFAULT NULL,
   PRIMARY KEY (`person_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=206 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -200,6 +229,36 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `rating`
+--
+
+DROP TABLE IF EXISTS `rating`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rating` (
+  `rating_id` int NOT NULL,
+  `order_id` int NOT NULL,
+  `driver_rating` int DEFAULT NULL,
+  `restaurant_rating` int DEFAULT NULL,
+  `driver_detailed` varchar(500) DEFAULT NULL,
+  `restaurant_detailed` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`rating_id`),
+  KEY `order_id_idx` (`order_id`),
+  CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `delivery` (`delivery_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rating`
+--
+
+LOCK TABLES `rating` WRITE;
+/*!40000 ALTER TABLE `rating` DISABLE KEYS */;
+INSERT INTO `rating` VALUES (1,1,5,5,'Great service','Great food!'),(2,2,4,5,'Driver was slow','Food was hot and tasty!'),(3,3,2,1,'Driver dropped the food before delivering it','The food was cold and clearly a day old');
+/*!40000 ALTER TABLE `rating` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `restaurant`
 --
 
@@ -207,7 +266,7 @@ DROP TABLE IF EXISTS `restaurant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `restaurant` (
-  `restaurant_id` int(11) NOT NULL AUTO_INCREMENT,
+  `restaurant_id` int NOT NULL AUTO_INCREMENT,
   `location` varchar(75) DEFAULT NULL,
   `restaurant_name` varchar(75) DEFAULT NULL,
   `schedule` varchar(75) DEFAULT NULL,
@@ -222,130 +281,12 @@ CREATE TABLE `restaurant` (
 
 LOCK TABLES `restaurant` WRITE;
 /*!40000 ALTER TABLE `restaurant` DISABLE KEYS */;
-INSERT INTO `restaurant` VALUES (1,'5357 Adrianna Shoal Suite 418\nEnochside, OH 46739-1915','Rath Ltd','9am -10pm','http://hahn.com/'),(2,'6977 Adams Locks Suite 001\nErikastad, LA 55321-5793','Kerluke-Herman','11am - 11pm','http://wilderman.com/'),(3,'559 Robin Cape\nWest Merl, OH 31271-9957','Berge Inc','11am - 11pm','http://okunevarohan.com/'),(4,'4501 Labadie Via\nLake America, NJ 33290','Hamill, Prohaska and Lehner','10am - 9pm','http://jacobswilderman.info/'),(5,'5587 Fanny Port\nNorth Nigel, NC 05813','Ratke LLC','10am - 9pm','http://www.williamson.org/'),(6,'3906 Wilkinson Street Suite 611\nLake Moisesburgh, DE 83148','Fisher-Rempel','9am -10pm','http://www.lehner.net/'),(7,'459 Labadie Course Suite 026\nNorth Ola, ND 60631','Ryan, Jaskolski and Schinner','10am - 9pm','http://www.schuster.org/'),(8,'630 Block Harbors\nEast Rudolphhaven, LA 44638','Kub, Borer and Ward','11am - 11pm','http://klingprohaska.com/'),(9,'40616 Mante Islands\nSouth Gileschester, MI 75466','O\'Conner-Mraz','9am -10pm','http://www.rosenbaum.com/'),(10,'9015 Velma Junction\nSpencerland, KY 15821-5602','Mayert LLC','9am -10pm','http://www.raynorgoldner.com/'),(11,'48482 Bode Harbors\nPort Modesta, AZ 10082-7993','Grady, Kreiger and Frami','10am - 9pm','http://skiles.com/'),(12,'597 Leora Summit Apt. 714\nEbertbury, WI 48130-6262','Abbott-Schmitt','9am -10pm','http://feil.com/'),(13,'387 Tromp Estates Suite 445\nWest Leopoldshire, NC 80009','Ankunding Group','9am -10pm','http://www.balistreri.info/'),(14,'679 Russel Villages\nConnellyfort, MD 72266','Weber, Lehner and Mueller','9am -10pm','http://mccullough.com/'),(15,'177 Katrina Gateway Apt. 797\nJastport, MN 44988-2805','Connelly, Wolf and Murazik','10am - 9pm','http://mraz.com/'),(16,'3136 Kunde Ports Apt. 399\nLake Trevor, CO 19002','Abernathy, Lehner and Zulauf','10am - 9pm','http://kirlinkulas.com/'),(17,'03334 Blanda Trafficway Suite 568\nFloyfort, OK 34900-7724','Heathcote, Kovacek and Cummerata','9am -10pm','http://glover.biz/'),(18,'031 Milton Bypass Suite 952\nStephonburgh, WY 82916-7389','Hauck, Rodriguez and Cremin','11am - 11pm','http://reynolds.com/'),(19,'375 Alanna Crossroad Suite 259\nNorth Shanna, MN 54873','Hermiston-Purdy','11am - 11pm','http://herzog.com/'),(20,'9359 Marcos Park Apt. 091\nSchmitttown, IL 68853','Smitham-Haley','11am - 11pm','http://quitzonmckenzie.com/'),(21,'215 Shanon Creek\nEast Antonettaview, MN 74167-8029','Cruickshank-Reilly','10am - 9pm','http://rodriguezkshlerin.com/'),(22,'0562 Cassin Divide\nElenorafurt, AR 37048','Eichmann-Casper','10am - 9pm','http://www.farrell.biz/'),(23,'41925 Bosco Station Apt. 238\nSouth Clara, MA 87547-3817','Gorczany, Kuphal and Pouros','9am -10pm','http://www.dare.com/'),(24,'9119 Cummerata Avenue Suite 529\nAbshiremouth, ND 00145-7770','Moen Ltd','9am -10pm','http://www.eichmannhomenick.org/'),(25,'422 Lesch Common Apt. 940\nNew Felicitaborough, IL 21308-3053','Keeling, Maggio and Hirthe','10am - 9pm','http://hermannwalter.info/'),(26,'52787 Ullrich Locks\nReynoldsside, IA 48689-5885','Mraz, Reichel and Hermiston','11am - 11pm','http://www.runolfsdottir.com/'),(27,'1135 Bartell Islands\nLake Philipton, HI 43588-0971','Oberbrunner-Herman','10am - 9pm','http://www.rice.com/'),(28,'8279 Concepcion Center\nHauckshire, AL 83821','Stanton-D\'Amore','9am -10pm','http://nienow.com/'),(29,'283 Nadia Islands\nAudreanneburgh, GA 64125-4442','Waelchi LLC','11am - 11pm','http://www.littel.net/'),(30,'093 Fredrick Spurs\nSouth Shannamouth, RI 24292','Ziemann, Denesik and Kunze','10am - 9pm','http://www.klinghilll.info/'),(31,'3948 Kiehn Forest Apt. 782\nHageneschester, VT 94419','Tromp Ltd','9am -10pm','http://white.com/'),(32,'4652 Maeve Brook\nSouth Corine, WA 21701-5426','Beatty Ltd','11am - 11pm','http://parisian.biz/'),(33,'4863 Becker Spring\nNorth Candelarioburgh, UT 16649-1046','Gutmann LLC','10am - 9pm','http://beahan.net/'),(34,'46083 Mekhi Ridge\nLake Jerrodhaven, VT 38507-5949','Macejkovic Ltd','9am -10pm','http://www.beahan.com/'),(35,'214 Lyric Mission\nPort Meaganview, AR 17033','Rolfson LLC','9am -10pm','http://skiles.com/'),(36,'96083 Konopelski Isle Suite 006\nBruenfort, KY 49444-9497','Marquardt, Reinger and Gusikowski','11am - 11pm','http://www.daniel.com/'),(37,'213 Larkin Coves\nQuintonside, TX 07955','Harber Group','10am - 9pm','http://www.goodwin.biz/'),(38,'0859 Hills Pine Apt. 888\nMyriammouth, NM 69940-8316','Wuckert, Reilly and Wuckert','9am -10pm','http://www.boscokilback.com/'),(39,'67511 Graham Shore\nLaceyland, WI 78493','Kirlin, Gibson and Kovacek','9am -10pm','http://schinner.com/'),(40,'0416 Nyasia Hills\nWest Penelope, MA 56613','Morissette, Kutch and Spinka','11am - 11pm','http://www.smitham.biz/'),(41,'6044 Prohaska Oval\nWillton, MI 09742','Corkery, Kilback and Skiles','10am - 9pm','http://www.schumm.com/'),(42,'0561 Dora Manors Suite 455\nNew Aliamouth, CO 28487-7002','Huels-Considine','11am - 11pm','http://dareboehm.biz/'),(43,'719 Virgil Orchard Apt. 083\nSouth Amalia, KY 78515-9294','Gusikowski, Funk and Rau','10am - 9pm','http://www.johnston.org/'),(44,'8474 Joana Rest\nNorth Kariane, MI 13273-8980','Friesen, Zemlak and Runolfsson','9am -10pm','http://www.schillerstreich.org/'),(45,'85504 Jacky Radial Suite 460\nBeauberg, ND 20689','Hayes-O\'Hara','9am -10pm','http://www.feest.net/'),(46,'791 Lennie Tunnel Apt. 153\nTyreekshire, DC 94328','Sporer, Reinger and Runte','10am - 9pm','http://www.gerhold.com/'),(47,'269 Keeling Forks\nBauchfort, TN 32390-9816','Rutherford, Cummerata and Langosh','10am - 9pm','http://pacocha.net/'),(48,'976 Gislason Heights Suite 926\nChristiansenshire, FL 00995','McGlynn PLC','10am - 9pm','http://langoshmcclure.com/'),(49,'3227 Witting Landing\nFerrystad, WY 43540','Crooks, Corkery and Dickinson','11am - 11pm','http://hudson.com/'),(50,'59694 Ulises Ranch Apt. 292\nRobelhaven, NY 81549','Jenkins-Greenholt','11am - 11pm','http://feil.net/'),(51,'71811 Gertrude Via Suite 007\nSouth Taryn, NV 23967','Waters, Turner and Adams','9am -10pm','http://franeckikuhn.com/'),(52,'09615 Green Shores Suite 103\nJaquanmouth, VA 66615','Hilpert, Von and Frami','11am - 11pm','http://gloverhansen.com/'),(53,'7385 Douglas Rapid\nLake Eusebioberg, NV 04724','Larkin, Lakin and Huel','11am - 11pm','http://www.pfeffer.com/'),(54,'121 Hartmann Falls Apt. 221\nEast Ashleyshire, CT 19450','Cremin Ltd','10am - 9pm','http://davis.com/'),(55,'9775 Victoria Inlet\nWest Clifford, NV 16309-4617','Orn, Kshlerin and Ebert','10am - 9pm','http://www.wisokywilderman.net/'),(56,'983 Macie Squares Apt. 211\nEast Lyda, PA 70725','Keeling-Jaskolski','11am - 11pm','http://doyle.com/'),(57,'801 Strosin Village\nDouglasbury, WY 85892','Kuhn-Kuhn','10am - 9pm','http://www.blick.com/'),(58,'162 Renner Walk\nNew Lexie, IN 72766','Runolfsdottir-Hagenes','9am -10pm','http://hickle.info/'),(59,'207 Berge Turnpike\nNorth Bulah, NY 56382-2747','Bradtke, Johnston and Baumbach','11am - 11pm','http://jones.org/'),(60,'93126 O\'Reilly Stream\nSouth Reneebury, NE 37534','Schulist-Dickinson','9am -10pm','http://www.huels.net/'),(61,'7027 Harold Vista Apt. 309\nSouth Lamarchester, AK 74002','Rath, Lebsack and Hane','10am - 9pm','http://www.sawayn.com/'),(62,'070 Valerie Radial\nLake Geraldine, ID 66048','Botsford Inc','9am -10pm','http://kesslergreenholt.com/'),(63,'83563 Gabe Cliffs Suite 176\nMurraybury, MI 42637-0699','Klocko and Sons','9am -10pm','http://cruickshankhahn.org/'),(64,'65258 Nelle Bypass Apt. 441\nNew Noemie, OR 56221-2401','Greenfelder-Strosin','11am - 11pm','http://www.quitzon.com/'),(65,'392 Terry Common\nReneeburgh, GA 16078-5698','Volkman Group','10am - 9pm','http://hansen.com/'),(66,'58362 Weimann View Apt. 783\nBorertown, IA 93172','Stanton-Marvin','10am - 9pm','http://johns.org/'),(67,'7339 Ziemann Common\nWest Diamondport, NC 14355-1563','Huels, Schamberger and Volkman','9am -10pm','http://www.greenholtlittle.com/'),(68,'172 Daisy Overpass\nFeestbury, MI 69119','Bahringer, Herman and Lebsack','10am - 9pm','http://www.reichert.info/'),(69,'744 Trudie Row Apt. 555\nLake Eduardoport, AL 24252-6634','Von and Sons','9am -10pm','http://www.buckridge.com/'),(70,'0420 Waelchi Ferry\nCedrickberg, KY 95033-5914','Daniel PLC','11am - 11pm','http://www.barton.com/'),(71,'90000 Pinkie Summit\nSouth Ansleyport, NJ 05455','Daniel, Ledner and Keebler','9am -10pm','http://swift.com/'),(72,'267 Kemmer Dam Suite 757\nLake Shanna, ND 06978-8017','Shields-Wehner','9am -10pm','http://maggiowisozk.com/'),(73,'5242 Maymie Prairie\nJosephinechester, CT 08166','Davis-Gottlieb','10am - 9pm','http://kiehn.com/'),(74,'503 Halvorson Roads\nEmilianomouth, WY 48846','Kuhic, DuBuque and Rutherford','10am - 9pm','http://mcdermott.com/'),(75,'61619 White Lock\nKassulkeberg, SD 92407','Miller-Schuppe','9am -10pm','http://langworth.net/'),(76,'2686 Rosina Drives\nLake Irving, WI 93674','Marquardt and Sons','9am -10pm','http://schoen.info/'),(77,'665 Reba Field Suite 259\nAbbieville, HI 45209','Heller-Stoltenberg','10am - 9pm','http://keebler.net/'),(78,'274 Aniyah View\nCorkerybury, NJ 42353-0485','Kub-Bartoletti','10am - 9pm','http://www.walkerschuster.biz/'),(79,'136 Champlin Circles Suite 260\nElmiraburgh, NY 86723','Pollich-Connelly','10am - 9pm','http://quigleyjohns.com/'),(80,'6656 Durgan Glens\nSidneyfort, NY 23527-3946','Predovic Group','11am - 11pm','http://www.mcclure.info/'),(81,'916 Kenna Walks Apt. 224\nDomenichaven, SD 08585','Thiel-Paucek','11am - 11pm','http://www.klein.com/'),(82,'87162 Keven Wall\nNew Amya, GA 23801-4982','Bednar and Sons','10am - 9pm','http://hamill.org/'),(83,'32020 Langworth Way\nJaycefort, MT 55909','Sipes-Carroll','9am -10pm','http://larkin.net/'),(84,'198 Mazie Bypass Apt. 852\nPort Newellland, ID 46813-6856','Kohler-Predovic','10am - 9pm','http://hermiston.com/'),(85,'8170 Orn Pine\nJadonton, MN 06564-1919','Fisher, Yundt and Wiegand','10am - 9pm','http://friesen.com/'),(86,'6809 Kulas Circles Suite 622\nPort Leonieland, KS 31358-9888','Corwin Inc','10am - 9pm','http://turner.com/'),(87,'540 Maximillia Via Suite 247\nNew Christine, OH 16149-9776','Veum PLC','10am - 9pm','http://www.shields.biz/'),(88,'8085 Alvina Isle Apt. 893\nJamisonland, MD 06507','Barrows Group','10am - 9pm','http://www.marquardtschumm.com/'),(89,'7446 Jarrett Plaza\nNew Phoebeview, ME 25224','Kub, Hoeger and Swaniawski','10am - 9pm','http://www.haley.biz/'),(90,'631 Wilkinson Shoal Apt. 785\nMadisynbury, NE 51948','Kerluke-Flatley','11am - 11pm','http://www.waters.net/'),(91,'86467 Kshlerin Point\nHeathcotetown, AZ 27728-4616','Rowe, Pouros and Gutkowski','11am - 11pm','http://gerlach.com/'),(92,'92578 Kylie Trafficway Suite 755\nLake Murphy, GA 78904','Grimes-Sporer','9am -10pm','http://www.osinski.com/'),(93,'72392 Hahn Station Apt. 674\nWest Josianeside, MT 59330-3244','Price-Reinger','11am - 11pm','http://stoltenbergmohr.biz/'),(94,'9329 Vesta Harbors Suite 849\nUllrichchester, DC 53814','Boehm, White and Kilback','9am -10pm','http://www.hillljohnson.com/'),(95,'30248 Eichmann Street Suite 151\nLake Nelson, VT 78923-5543','Conroy-O\'Keefe','10am - 9pm','http://hermiston.org/'),(96,'1070 Green Forks\nSelenaland, VT 70941','Wiegand LLC','9am -10pm','http://www.streich.com/'),(97,'20073 Clyde Ways Suite 898\nWest Dejahchester, GA 59632','Donnelly and Sons','10am - 9pm','http://cummings.net/'),(98,'215 Altenwerth Mall Apt. 621\nDietrichberg, MI 96944','McDermott, Senger and Ferry','10am - 9pm','http://www.collins.net/'),(99,'1105 Liza Shores Apt. 158\nHermannland, GA 62111','Grimes-Lakin','9am -10pm','http://terry.net/'),(100,'88626 Louvenia Fork\nLake Maxiefurt, TN 43522','Mertz Ltd','9am -10pm','http://ortiz.com/');
 /*!40000 ALTER TABLE `restaurant` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `staff`
+-- Dumping routines for database 'Campus_Eats_Fall2020'
 --
-
-DROP TABLE IF EXISTS `staff`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `staff` (
-  `staff_id` int(11) NOT NULL AUTO_INCREMENT,
-  `person_id` int(11) DEFAULT NULL,
-  `position` varchar(75) DEFAULT NULL,
-  `is_admin` varchar(1) DEFAULT 'N',
-  PRIMARY KEY (`staff_id`),
-  KEY `fk_S_person_id` (`person_id`),
-  CONSTRAINT `fk_S_person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`),
-  CONSTRAINT `check_is_admin_y_n` CHECK ((`is_admin` in (_utf8mb4'Y',_utf8mb4'N')))
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `staff`
---
-
-LOCK TABLES `staff` WRITE;
-/*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (1,27,'Janitor','Y'),(2,37,'Bus Driver','N'),(3,48,'Bus Driver','N'),(4,28,'Assistant Manager','N'),(5,31,'Receptionist','Y'),(6,38,'Assistant Manager','Y'),(7,26,'Bus Driver','N'),(8,49,'Logistic Manager','N'),(9,33,'Receptionist','Y'),(10,45,'Assistant Manager','Y'),(11,40,'Bus Driver','Y'),(12,29,'Logistic Manager','N'),(13,46,'Receptionist','N'),(14,41,'Logistic Manager','Y'),(15,32,'Logistic Manager','Y'),(16,47,'Janitor','N'),(17,50,'Logistic Manager','Y'),(18,30,'Janitor','Y'),(19,39,'Assistant Manager','Y'),(20,43,'Bus Driver','Y'),(21,35,'Bus Driver','Y'),(22,42,'Logistic Manager','Y'),(23,36,'Janitor','N'),(24,34,'Logistic Manager','Y'),(25,44,'Bus Driver','Y');
-/*!40000 ALTER TABLE `staff` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `student`
---
-
-DROP TABLE IF EXISTS `student`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `student` (
-  `student_id` int(11) NOT NULL AUTO_INCREMENT,
-  `person_id` int(11) NOT NULL,
-  `graduation_year` int(4) DEFAULT NULL,
-  `major` varchar(75) DEFAULT NULL,
-  `type` varchar(75) DEFAULT NULL,
-  PRIMARY KEY (`student_id`),
-  KEY `fk_St_person_id` (`person_id`),
-  CONSTRAINT `fk_St_person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `student`
---
-
-LOCK TABLES `student` WRITE;
-/*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (1,101,1987,'Philosophy','Undergraduate'),(2,141,1986,'Accounts','Undergraduate'),(3,92,1978,'Electronics','Graduate'),(4,85,2008,'Computer Science','Graduate'),(5,66,1979,'Accounts','Graduate'),(6,164,2019,'Accounts','Graduate'),(7,110,1989,'Philosophy','Undergraduate'),(8,137,1987,'Accounts','Undergraduate'),(9,140,1975,'Data Science','Graduate'),(10,107,1985,'Data Science','Graduate'),(11,55,2017,'Electrical','Undergraduate'),(12,91,2006,'Electrical','Undergraduate'),(13,144,2008,'Cyber Security','Graduate'),(14,58,2005,'Mechanical','Graduate'),(15,191,2015,'Accounts','Undergraduate'),(16,190,2011,'Biotechnology','Undergraduate'),(17,60,1990,'Cyber Security','Undergraduate'),(18,59,1987,'Environmental','Undergraduate'),(19,114,1999,'Data Science','Graduate'),(20,185,1986,'Electrical','Graduate'),(21,61,2006,'Electrical','Undergraduate'),(22,117,1984,'Data Science','Undergraduate'),(23,73,2004,'Chemical','Graduate'),(24,170,1976,'Chemical','Undergraduate'),(25,146,1997,'Computer Science','Graduate'),(26,143,1977,'Chemical','Undergraduate'),(27,108,1995,'Mechanical','Undergraduate'),(28,198,2000,'Mechanical','Graduate'),(29,94,2013,'Accounts','Graduate'),(30,172,2005,'Philosophy','Graduate'),(31,68,1981,'Chemical','Graduate'),(32,111,1991,'Environmental','Undergraduate'),(33,165,1983,'Cyber Security','Undergraduate'),(34,155,1993,'Environmental','Graduate'),(35,163,2013,'Accounts','Undergraduate'),(36,71,2002,'Accounts','Undergraduate'),(37,194,2013,'Data Science','Graduate'),(38,125,1983,'Chemical','Undergraduate'),(39,126,1980,'Chemical','Graduate'),(40,168,2014,'Electrical','Undergraduate'),(41,106,2010,'Data Science','Graduate'),(42,112,1990,'Accounts','Graduate'),(43,93,1975,'Philosophy','Graduate'),(44,195,2016,'Mechanical','Undergraduate'),(45,69,1975,'Philosophy','Graduate'),(46,180,1972,'Accounts','Undergraduate'),(47,56,1990,'Computer Science','Undergraduate'),(48,57,1982,'Accounts','Graduate'),(49,193,2012,'Accounts','Graduate'),(50,100,1988,'Civil','Graduate'),(51,78,1999,'Mechanical','Graduate'),(52,63,1989,'Mechanical','Undergraduate'),(53,153,1978,'Philosophy','Undergraduate'),(54,65,1985,'Cyber Security','Graduate'),(55,118,2010,'Biotechnology','Graduate'),(56,169,1981,'Chemical','Undergraduate'),(57,184,1980,'Chemical','Graduate'),(58,51,2001,'Accounts','Graduate'),(59,130,1993,'Data Science','Graduate'),(60,80,2005,'Chemical','Graduate'),(61,134,1994,'Chemical','Graduate'),(62,142,1979,'Accounts','Graduate'),(63,97,1988,'Data Science','Graduate'),(64,148,1998,'Biotechnology','Undergraduate'),(65,166,1980,'Civil','Undergraduate'),(66,116,1970,'Accounts','Undergraduate'),(67,138,2014,'Chemical','Graduate'),(68,113,1997,'Data Science','Undergraduate'),(69,70,2006,'Mechanical','Graduate'),(70,173,1975,'Cyber Security','Graduate'),(71,182,1984,'Accounts','Undergraduate'),(72,160,1974,'Cyber Security','Undergraduate'),(73,128,1972,'Environmental','Undergraduate'),(74,99,2009,'Environmental','Graduate'),(75,147,1971,'Mechanical','Graduate'),(76,81,1994,'Cyber Security','Graduate'),(77,177,1999,'Electronics','Graduate'),(78,90,1978,'Computer Science','Graduate'),(79,158,1985,'Computer Science','Graduate'),(80,79,2004,'Environmental','Graduate'),(81,119,1989,'Biotechnology','Graduate'),(82,171,2019,'Electronics','Undergraduate'),(83,77,1989,'Electronics','Undergraduate'),(84,186,1973,'Mechanical','Undergraduate'),(85,105,2011,'Chemical','Undergraduate'),(86,149,1971,'Mechanical','Undergraduate'),(87,133,1978,'Mechanical','Undergraduate'),(88,174,2010,'Environmental','Graduate'),(89,95,1994,'Mechanical','Undergraduate'),(90,72,2019,'Environmental','Undergraduate'),(91,76,1978,'Data Science','Graduate'),(92,123,2008,'Philosophy','Undergraduate'),(93,188,1979,'Data Science','Graduate'),(94,132,2001,'Data Science','Graduate'),(95,183,1983,'Data Science','Graduate'),(96,179,1973,'Data Science','Graduate'),(97,129,2000,'Accounts','Graduate'),(98,115,2015,'Philosophy','Undergraduate'),(99,200,1986,'Electronics','Undergraduate'),(100,84,2009,'Cyber Security','Undergraduate'),(101,54,1984,'Chemical','Graduate'),(102,102,2000,'Biotechnology','Undergraduate'),(103,152,2003,'Data Science','Graduate'),(104,176,1985,'Cyber Security','Graduate'),(105,120,2019,'Environmental','Graduate'),(106,53,1992,'Chemical','Graduate'),(107,178,1971,'Cyber Security','Graduate'),(108,122,1998,'Electronics','Graduate'),(109,86,2011,'Electrical','Graduate'),(110,136,2016,'Electronics','Graduate'),(111,151,1981,'Chemical','Undergraduate'),(112,196,1992,'Philosophy','Undergraduate'),(113,161,1994,'Computer Science','Undergraduate'),(114,83,2004,'Biotechnology','Undergraduate'),(115,98,1985,'Civil','Graduate'),(116,139,1979,'Accounts','Undergraduate'),(117,181,1977,'Mechanical','Graduate'),(118,197,1973,'Accounts','Undergraduate'),(119,135,1998,'Electronics','Undergraduate'),(120,109,2002,'Cyber Security','Undergraduate'),(121,159,1976,'Chemical','Graduate'),(122,67,1971,'Chemical','Undergraduate'),(123,199,2019,'Computer Science','Graduate'),(124,64,1992,'Accounts','Undergraduate'),(125,74,2002,'Data Science','Graduate'),(126,175,1987,'Environmental','Undergraduate'),(127,157,2017,'Biotechnology','Undergraduate'),(128,62,1971,'Biotechnology','Undergraduate'),(129,103,1993,'Cyber Security','Graduate'),(130,131,1972,'Environmental','Graduate'),(131,87,1989,'Electrical','Undergraduate'),(132,150,1984,'Cyber Security','Graduate'),(133,75,1988,'Accounts','Graduate'),(134,82,2018,'Civil','Graduate'),(135,124,2016,'Computer Science','Undergraduate'),(136,88,1989,'Biotechnology','Undergraduate'),(137,167,1991,'Data Science','Undergraduate'),(138,127,2013,'Chemical','Undergraduate'),(139,89,1986,'Electronics','Undergraduate'),(140,189,1995,'Environmental','Graduate'),(141,192,1972,'Philosophy','Graduate'),(142,145,1981,'Computer Science','Graduate'),(143,156,1996,'Environmental','Undergraduate'),(144,162,1999,'Cyber Security','Undergraduate'),(145,154,2009,'Biotechnology','Undergraduate'),(146,104,2006,'Electronics','Graduate'),(147,96,1985,'Mechanical','Graduate'),(148,187,2002,'Cyber Security','Undergraduate'),(149,52,1995,'Cyber Security','Undergraduate'),(150,121,1994,'Mechanical','Graduate'),(151,204,2019,'graduate','Graduate');
-/*!40000 ALTER TABLE `student` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `vehicle`
---
-
-DROP TABLE IF EXISTS `vehicle`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `vehicle` (
-  `vehicle_id` int(11) NOT NULL AUTO_INCREMENT,
-  `vehicle_plate` varchar(75) DEFAULT NULL,
-  `model` varchar(75) DEFAULT NULL,
-  `make` varchar(75) DEFAULT NULL,
-  PRIMARY KEY (`vehicle_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `vehicle`
---
-
-LOCK TABLES `vehicle` WRITE;
-/*!40000 ALTER TABLE `vehicle` DISABLE KEYS */;
-INSERT INTO `vehicle` VALUES (1,'4333','p','Mercedes'),(2,'8289','y','BMW'),(3,'1126','h','Bugatti'),(4,'7749','p','Audi'),(5,'2644','z','BMW'),(6,'9878','o','Kia'),(7,'4697','i','Kia'),(8,'9687','s','Mercedes'),(9,'3364','c','Hyundai'),(10,'8683','z','Toyota'),(11,'5436','i','Kia'),(12,'9357','e','Kia'),(13,'6519','z','Toyota'),(14,'3585','t','Hyundai'),(15,'2767','d','Bugatti'),(16,'4184','j','Mercedes'),(17,'6489','l','BMW'),(18,'4260','j','Audi'),(19,'6455','d','Mercedes'),(20,'7009','q','Toyota');
-/*!40000 ALTER TABLE `vehicle` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping events for database 'niner_eats'
---
-
---
--- Dumping routines for database 'niner_eats'
---
-/*!50003 DROP PROCEDURE IF EXISTS `add_person` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_person`(in person_name varchar(300), in email varchar(150), cellno bigint (15), person_type varchar(10))
-BEGIN
-insert into person (person_name, person_email, cell) values(person_name, email, cellno);
-if(person_type = 'student') then
-insert into student (person_id, graduation_year, major, type) values 
-((select person_id from person where cell = cellno), 2019, 'Computer Science', 'Graduate');
-elseif(person_type = 'faculty') then
-insert into faculty (person_id, title, degree_college, highest_degree) values 
-((select person_id from person where cell = cellno), 'Assistant Professor', 'UCLA', 'PhD');
-elseif(person_type = 'staff') then
-insert into student (person_id, position, is_admin) values 
-((select person_id from person where cell = cellno), 'Bus Driver', 'N');
-end if;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
--- /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `person_join`
@@ -357,13 +298,13 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
--- /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `person_join` AS select `person`.`person_id` AS `person_id`,`person`.`person_name` AS `person_name`,`person`.`person_email` AS `person_email`,`student`.`student_id` AS `student_id`,`student`.`graduation_year` AS `graduation_year` from (`person` join `student` on((`student`.`person_id` = `person`.`person_id`))) where (`student`.`major` = 'Computer Science') */;
+/*!50001 VIEW `person_join` AS select 1 AS `person_id`,1 AS `person_name`,1 AS `person_email`,1 AS `student_id`,1 AS `graduation_year` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
--- /*!50001 SET collation_connection      = @saved_col_connection */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
 -- Final view structure for view `person_student`
@@ -375,13 +316,13 @@ DELIMITER ;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
--- /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `person_student` AS select `a`.`person_id` AS `person_id`,`a`.`person_name` AS `person_name`,`a`.`person_email` AS `person_email`,`a`.`cell` AS `cell` from `person` `a` where `a`.`person_id` in (select `student`.`person_id` from `student` where (`student`.`graduation_year` = 2019)) */;
+/*!50001 VIEW `person_student` AS select 1 AS `person_id`,1 AS `person_name`,1 AS `person_email`,1 AS `cell` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
--- /*!50001 SET collation_connection      = @saved_col_connection */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -389,63 +330,7 @@ DELIMITER ;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
--- /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-02 21:16:05
---
--- Table structure for table `order`
---
-
-DROP TABLE IF EXISTS `order`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `person_id` int(11) NOT NULL,
-  `delivery_id` int(11) NOT NULL,
-  `location_id` int(11) NOT NULL,
-  `driver_id` int(11) NOT NULL,
-  `restaurant_id` int(11) NOT NULL,
-  `total_price` float NOT NULL,
-  `delivery_charge` float DEFAULT NULL,
-  PRIMARY KEY (`order_id`),
-  KEY `fk_O_person_id` (`person_id`),
-  KEY `fk_O_delivery_id` (`delivery_id`),
-  KEY `fk_O_location_id` (`location_id`),
-  KEY `fk_O_driver_id` (`driver_id`),
-  KEY `fk_O_restaurant_id` (`restaurant_id`),
-  CONSTRAINT `fk_O_delivery_id` FOREIGN KEY (`delivery_id`) REFERENCES `delivery` (`delivery_id`),
-  CONSTRAINT `fk_O_driver_id` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`),
-  CONSTRAINT `fk_O_location_id` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`),
-  CONSTRAINT `fk_O_person_id` FOREIGN KEY (`person_id`) REFERENCES `person` (`person_id`),
-  CONSTRAINT `fk_O_restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`restaurant_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `order`
---
-
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (1,1,1,1,1,1,15.63,6.63),(2,2,2,2,2,2,18.03,9.43),(3,3,3,3,3,3,11.91,7.42),(4,4,4,4,4,4,19.13,6.26),(5,5,5,5,5,5,13.76,6.24),(6,6,6,6,6,6,5.4,4.83),(7,7,7,7,7,7,14.05,8.57),(8,8,8,8,8,8,3.81,2.38),(9,9,9,9,1,9,17.1,6.72),(10,10,10,10,2,10,12.71,1.82),(11,11,11,11,3,11,3.9,7.26),(12,12,12,12,4,12,6.82,7.4),(13,13,13,13,5,13,4.73,7.43),(14,14,14,14,6,14,12.08,1.21),(15,15,15,15,7,15,3.83,4.77),(16,16,16,16,8,16,12.43,2.76),(17,17,17,17,1,17,6.61,4.85),(18,18,18,18,2,18,7.89,5.69),(19,19,19,19,3,19,16.54,4.88),(20,20,20,20,4,20,3.21,4.98),(21,21,21,21,5,21,5.19,4.17),(22,22,22,22,6,22,19,1.39),(23,23,23,23,7,23,14.5,3.28),(24,24,24,24,8,24,11.81,2.71),(25,25,25,25,1,25,6.83,4.85),(26,26,26,26,2,26,7.24,5.65),(27,27,27,27,3,27,10.56,1.73),(28,28,28,28,4,28,4.25,4.98),(29,29,29,29,5,29,6.68,8.66),(30,30,30,30,6,30,14.5,6.47),(31,31,31,31,7,31,14.92,9.53),(32,32,32,32,8,32,4.12,9.42),(33,33,33,33,1,33,7.02,7.99),(34,34,34,34,2,34,8.6,6.69),(35,35,35,35,3,35,8.98,4.72),(36,36,36,36,4,36,7.94,4.78),(37,37,37,37,5,37,14.8,2.13),(38,38,38,38,6,38,19.05,6.61),(39,39,39,39,7,39,12.49,5.97),(40,40,40,40,8,40,15.56,6.01),(41,41,41,41,1,41,8.85,7.06),(42,42,42,42,2,42,12.28,5.52),(43,43,43,43,3,43,9.28,9.63),(44,44,44,44,4,44,9.78,8),(45,45,45,45,5,45,12.43,5.11),(46,46,46,46,6,46,4.11,9.65),(47,47,47,47,7,47,14.29,6.65),(48,48,48,48,8,48,5.69,3.31),(49,49,49,49,1,49,12.52,6.38),(50,50,50,50,2,50,8.84,9.92),(51,51,51,51,3,51,5.69,1.5),(52,52,52,52,4,52,14.53,4.58),(53,53,53,53,5,53,10.23,3.61),(54,54,54,54,6,54,10.7,7.36),(55,55,55,55,7,55,14.03,8.66),(56,56,56,56,8,56,13.46,1.26),(57,57,57,57,1,57,13.98,8.85),(58,58,58,58,2,58,15.21,6.59),(59,59,59,59,3,59,4.6,8.25),(60,60,60,60,4,60,3.27,6.39),(61,61,61,61,5,61,9.39,2.63),(62,62,62,62,6,62,3.7,2.47),(63,63,63,63,7,63,18.49,7.01),(64,64,64,64,8,64,15.51,8.26),(65,65,65,65,1,65,6.8,9.41),(66,66,66,66,2,66,12.57,1.88),(67,67,67,67,3,67,8.69,6.21),(68,68,68,68,4,68,9.38,9.56),(69,69,69,69,5,69,18.23,3.89),(70,70,70,70,6,70,13.39,9.65),(71,71,71,71,7,71,17.71,3.01),(72,72,72,72,8,72,10.59,2.03),(73,73,73,73,1,73,6.99,9.8),(74,74,74,74,2,74,14.14,3.98),(75,75,75,75,3,75,16.73,7.27),(76,76,76,76,4,76,6.64,5.09),(77,77,77,77,5,77,16.48,1.15),(78,78,78,78,6,78,18.61,6.49),(79,79,79,79,7,79,18.66,8.19),(80,80,80,80,8,80,7.6,9.54),(81,81,81,81,1,81,16.72,4.05),(82,82,82,82,2,82,5.64,7.18),(83,83,83,83,3,83,7.39,9.14),(84,84,84,84,4,84,11.61,1.57),(85,85,85,85,5,85,16.74,8.84),(86,86,86,86,6,86,19.88,2.43),(87,87,87,87,7,87,7.52,4.32),(88,88,88,88,8,88,14.63,4.4),(89,89,89,89,1,89,19.45,9.89),(90,90,90,90,2,90,12.5,8.23),(91,91,91,91,3,91,10.34,3.69),(92,92,92,92,4,92,11.34,6.34),(93,93,93,93,5,93,15.05,8.26),(94,94,94,94,6,94,7.89,7.05),(95,95,95,95,7,95,16.69,9.19),(96,96,96,96,8,96,5.71,8.39),(97,97,97,97,1,97,16.9,9.15),(98,98,98,98,2,98,15.63,8.92),(99,99,99,99,3,99,3.71,2.53),(100,100,100,100,4,100,5.08,2.74),(101,1,2,3,4,5,6,1);
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
--- /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `order_AFTER_INSERT` AFTER INSERT ON `order` FOR EACH ROW BEGIN
-	insert into niner_eats.delivery (driver_id, vehicle_id) values(new.driver_id, 2);
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
--- /*!50003 SET collation_connection  = @saved_col_connection */ ;
+-- Dump completed on 2020-11-22 20:15:58
