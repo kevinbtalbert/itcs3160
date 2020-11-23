@@ -20,7 +20,7 @@
 
 [Description of Future Work](#future_description)
 
-[MySQL dump](#sql_dump)
+[MySQL Database Dump](#sql_dump)
 
 [PPT Video](#ppt_video)
 
@@ -77,7 +77,7 @@ the campus food delivery service. The user orders food. The user pays amount. Re
 
 ### MySQL Queries
 
-[MySQL Queries](LINKHERE.pdf)
+[MySQL Queries](Rating-System/Use%20Case%20Statements/UseCaseStatements-Rating.sql)
 
 <a name="stored_procedures"></a> 
 
@@ -89,7 +89,9 @@ the campus food delivery service. The user orders food. The user pays amount. Re
 
 <a name="sql_dump"></a> 
 
-### MySQL dump
+### MySQL Database Dump (Import-Export)
+
+[MySQL Database Dump](Rating-System/SQL%20Database%20Dump%20(Import-Export)/Campus_Eats_Ratings_DB.sql)
 
 <a name="ppt_video"></a> 
 
