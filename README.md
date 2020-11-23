@@ -63,7 +63,7 @@ the campus food delivery service. The user orders food. The user pays amount. Re
 
 ### EERD (full database)
 
-[EER Diagram](https://github.com/kevinbtalbert/itcs3160/blob/main/Rating-System/EER%20Diagram%20(updated).pdf)
+[EER Diagram](Rating-System/EER%20Diagram%20(updated).pdf)
 
 <a name="mysql"></a> 
 
