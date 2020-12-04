@@ -1,4 +1,4 @@
--- Insert Ratings into Ratings table
+-- Insert Ratings into Ratings table (Deprecated, use RatingsTableData.sql)
 INSERT INTO `Campus_Eats_Fall2020`.`rating`
 (`rating_id`,
 `order_id`,
