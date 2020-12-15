@@ -103,7 +103,7 @@ the campus food delivery service. The user orders food. The user pays amount. Re
 
 [MySQL Database Dump](Rating-System/SQL%20Database%20Dump%20(Import-Export)/Campus_Eats_Ratings_DB.sql)
 
-[Data Storage](Rating-System/SQL%20Database%20Dump%20(Import-Export)/Data%20Store)
+[Data Storage (Includes Sample Screenshots of Tables and Insert Statements for Data)](Rating-System/SQL%20Database%20Dump%20(Import-Export)/Data%20Store)
 
 <a name="ppt_video"></a> 
 
