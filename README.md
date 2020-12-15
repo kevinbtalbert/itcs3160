@@ -87,15 +87,17 @@ the campus food delivery service. The user orders food. The user pays amount. Re
 
 [Stored Procedures](Rating-System/Stored%20Procedures)
 
-<a name="Stored Procedures"></a> 
+<a name="advanced_views"></a> 
 
 ### Advanced Views
 
 [Advanced Views](Rating-System/Advanced%20Views%20Queries)
 
-<a name="advanced_views"></a> 
+<a name="future_description"></a> 
 
 ### Description of Future Work
+
+Future work on this database would likely involve utilizing a user interface, connected to a web app or mobile app, for an individual to access ratings both for a driver and the restaurant as well as search for the best restaurants, by rating. A user interface would allow for data validation on user entry to capture live statistics on orders and update them in real time to the database. Restaurants and drivers would be able to apply to the platform and would be able to see their ratings as orders come in. Filtered access to the database would allow the drivers to only see details relevant to the particular order they are servicing and a restaurant would only be able to fulfill an order assigned to them. Creating an online interface would allow for user's to interact with the database in a governed manner without using SQL statements directly to modify the database and add/update orders.
 
 <a name="sql_dump"></a> 
 
