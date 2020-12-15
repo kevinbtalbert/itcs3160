@@ -24,7 +24,7 @@
 
 [MySQL Database Dump](#sql_dump)
 
-[PPT Video](#ppt_video)
+[Final Project Video](#final_video)
 
 <a name="introduction"></a> 
 
@@ -107,10 +107,11 @@ Future work on this database would likely involve utilizing a user interface, co
 
 [Data Storage (Includes Sample Screenshots of Tables and Insert Statements for Data)](Rating-System/SQL%20Database%20Dump%20(Import-Export)/Data%20Store)
 
-<a name="ppt_video"></a> 
+<a name="final_video"></a> 
 
-### PPT Video (link)
+### Final Project Video (link)
 
+[Link to Project Overview Video](https://youtu.be/e5sBn5yJCAg)
 
-
+Or Copy and Paste the following: https://youtu.be/e5sBn5yJCAg
 
