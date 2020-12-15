@@ -18,6 +18,8 @@
 
 [Stored Procedure](#stored_procedures)
 
+[Advanced Views](#advanced_views)
+
 [Description of Future Work](#future_description)
 
 [MySQL Database Dump](#sql_dump)
@@ -86,6 +88,12 @@ the campus food delivery service. The user orders food. The user pays amount. Re
 [Stored Procedures](Rating-System/Stored%20Procedures)
 
 <a name="Stored Procedures"></a> 
+
+### Advanced Views
+
+[Advanced Views](Rating-System/Advanced%20Views%20Queries)
+
+<a name="advanced_views"></a> 
 
 ### Description of Future Work
 
